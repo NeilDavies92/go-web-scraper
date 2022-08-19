@@ -17,8 +17,10 @@ func main() {
 	// Collector manages the network communication and responsible for the
 	// execution of the attached callbacks while a collector job is running.
 
+	domain := "j2store.net"
+
 	c := colly.NewCollector(
-		colly.AllowedDomains("j2store.net"),
+		colly.AllowedDomains(domain),
 	)
 
 	c.OnHTML("div[itemprop=itemListElement]", func(h *colly.HTMLElement) {
