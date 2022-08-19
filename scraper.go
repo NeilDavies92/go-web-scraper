@@ -23,7 +23,7 @@ func main() {
 		colly.AllowedDomains(domain),
 	)
 
-	c.OnHTML("div[itemprop=itemListElement]", func(h *colly.HTMLElement) {
+	c.OnHTML("div.col-sm-9 div[itemprop=itemListElement]", func(h *colly.HTMLElement) {
 		fmt.Println(h.ChildText("h2.product-title"))
 	})
 
