@@ -7,9 +7,9 @@ import (
 )
 
 type Item struct {
-	Name     string `json: "name"`
-	Price    string `json: "price"`
-	ImageUrl string `json: "imageurl"`
+	Name   string `json: "name"`
+	Price  string `json: "price"`
+	ImgUrl string `json: "imageurl"`
 }
 
 func main() {
@@ -24,7 +24,13 @@ func main() {
 	)
 
 	c.OnHTML("div.col-sm-9 div[itemprop=itemListElement]", func(h *colly.HTMLElement) {
-		fmt.Println(h.ChildText("h2.product-title"))
+		item := Item{
+			Name:   h.ChildText("h2.product-title"),
+			Price:  h.ChildText("div.sale-price"),
+			ImgUrl: h.ChildAttr("img", "src"),
+		}
+
+		fmt.Println(item)
 	})
 
 	url := "https://j2store.net/demo/index.php/shop"
