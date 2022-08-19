@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"os"
 
 	"github.com/gocolly/colly"
 )
@@ -48,5 +50,13 @@ func main() {
 	})
 
 	c.Visit("https://j2store.net/demo/index.php/shop")
-	fmt.Println(items)
+
+	// Save scraped contents as json file
+	content, err := json.Marshal(items)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	os.WriteFile("items.json", content, 0644)
+
 }
