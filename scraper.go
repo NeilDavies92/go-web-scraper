@@ -20,10 +20,8 @@ func main() {
 	// Collector manages the network communication and responsible for the
 	// execution of the attached callbacks while a collector job is running.
 
-	domain := "j2store.net"
-
 	c := colly.NewCollector(
-		colly.AllowedDomains(domain),
+		colly.AllowedDomains("j2store.net"),
 	)
 
 	var items []item
@@ -58,5 +56,4 @@ func main() {
 	}
 
 	os.WriteFile("items.json", content, 0644)
-
 }
