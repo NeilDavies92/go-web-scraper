@@ -36,9 +36,17 @@ func main() {
 		items = append(items, item)
 	})
 
-	url := "https://j2store.net/demo/index.php/shop"
+	// Find and visit next page
+	c.OnHTML("[title=Next]", func(h *colly.HTMLElement) {
+		nextPage := h.Request.AbsoluteURL(h.Attr("href"))
+		c.Visit(nextPage)
+	})
 
-	c.Visit(url)
+	// Print out URL of pages scraped
+	c.OnRequest(func(r *colly.Request) {
+		fmt.Println(r.URL.String())
+	})
 
+	c.Visit("https://j2store.net/demo/index.php/shop")
 	fmt.Println(items)
 }
